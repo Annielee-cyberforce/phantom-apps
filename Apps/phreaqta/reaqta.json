@@ -1,0 +1,435 @@
+{
+    "appid": "e428937f-19fc-4a70-b429-16613098e1d5",
+    "name": "ReaQta Hive",
+    "description": "This app integrates with the ReaQta",
+    "type": "endpoint",
+    "product_vendor": "ReaQta",
+    "logo": "logo_reaqta.svg",
+    "logo_dark": "logo_reaqta_dark.svg",
+    "product_name": "ReaQta HIve",
+    "python_version": "3",
+    "product_version_regex": ".*",
+    "publisher": "Cyberforce Limited",
+    "license": "Copyright (c) Cyberforce Limited, 2021",
+    "app_version": "1.0.0",
+    "utctime_updated": "2022-07-07T04:00:27.835114Z",
+    "package_name": "phantom_reaqta",
+    "main_module": "reaqta_connector.py",
+    "min_phantom_version": "4.9.39220",
+    "app_wizard_version": "1.0.0",
+    "configuration": {
+        "secret_key": {
+            "description": "Secret Key",
+            "data_type": "password",
+            "required": true,
+            "order": 0
+        },
+        "app_id": {
+            "description": "APP ID",
+            "data_type": "string",
+            "required": true,
+            "order": 1
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied configuration",
+            "type": "test",
+            "identifier": "test_connectivity",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get alert",
+            "description": "Retrives the details of an alert",
+            "type": "investigate",
+            "identifier": "get_alert",
+            "read_only": true,
+            "parameters": {
+                "alert_id": {
+                    "description": "The alert ID",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "alert id"
+                    ],
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.alert_id",
+                    "data_type": "string",
+                    "contains": [
+                        "alert id"
+                    ],
+                    "column_name": "Alert ID",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "close alert",
+            "description": "Closes an alert",
+            "type": "contain",
+            "identifier": "close_alert",
+            "read_only": true,
+            "parameters": {
+                "alert_id": {
+                    "description": "The alert ID",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "alert id"
+                    ],
+                    "order": 0
+                },
+                "malicious": {
+                    "description": "If present closes the alert and marks it as maliciou",
+                    "data_type": "boolean"              
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.alert_id",
+                    "data_type": "string",
+                    "contains": [
+                        "alert id"
+                    ],
+                    "column_name": "Alert ID",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.parameter.malicious",
+                    "data_type": "boolean"
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "search alerts",
+            "description": "Search alerts",
+            "type": "investigate",
+            "identifier": "search_alerts",
+            "read_only": true,
+            "parameters": {
+                "id": {
+                    "description": "The ids of the alerts to return",
+                    "data_type": "string"
+                },
+                "endpoint_id": {
+                    "description": "The list of endpoint IDs where the alert was generated",
+                    "data_type": "string"
+                },
+                "triggerCondition": {
+                    "description": "The alert trigger condition",
+                    "data_type": "numeric",
+                    "value_list": [
+                        0,1,2,3,4,5,6,7,8,9,10,11,12,13
+                    ]
+                },
+                "tag": {
+                    "description": "Tags for the alert",
+                    "data_type": "string"
+                },
+                "activityState": {
+                    "description": "The activity state of the alert",
+                    "data_type": "string",
+                    "value_list": [
+                        "active",
+                        "idle",
+                        "inactive",
+                        "archived"
+                    ]
+                },
+                "severity": {
+                    "description": "The alert severity",
+                    "data_type": "string",
+                    "value_list": [
+                        "safe",
+                        "low",
+                        "medium",
+                        "high"
+                    ]
+                },
+                "status": {
+                    "description": "The alert status",
+                    "data_type": "string",
+                    "value_list": [
+                        "malicious",
+                        "benign",
+                        "none"
+                    ]
+                },
+                "happenedAfter": {
+                    "description": "The alert happened after the given date",
+                    "data_type": "string"
+                },
+                "happenedBefore": {
+                    "description": "The alert before the given date",
+                    "data_type": "string"
+                },
+                "receivedAfter": {
+                    "description": "The alert was received by the backend after the given date",
+                    "data_type": "string"
+                },
+                "receivedBefore": {
+                    "description": "The alert was received by the backend before the given date",
+                    "data_type": "string"
+                },
+                "closedAfter": {
+                    "description": "The alert has been closed after the given date",
+                    "data_type": "string"
+                },
+                "closedBefore": {
+                    "description": "The alert has been closed before the given date",
+                    "data_type": "string"
+                },
+                "country": {
+                    "description": "The alert containnection events to the given countries",
+                    "data_type": "string"
+                },
+                "sortBy": {
+                    "description": "A list of sort parameters",
+                    "data_type": "string"
+                },
+                "gid": {
+                    "description": "A list of group IDs to which the endpoint on which the alert was generated belongs",
+                    "data_type": "string"
+                },
+                "count": {
+                    "description": "The number of alerts to return in a single page",
+                    "data_type": "numeric"
+                },
+                "lastSeenId": {
+                    "description": "If present, it automatically sorts alerts by id in ascending order and returns those with an id strictly greater than the provided one.",
+                    "data_type": "string"
+                }
+                
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.id",
+                    "data_type": "string",
+                    "contains": [
+                        "alert id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.endpoint_id",
+                    "data_type": "string",
+                    "contains": [
+                        "endpoint id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.activityState",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.severity",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.status",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get policy",
+            "description": "Retrives the details of a policy",
+            "type": "investigate",
+            "identifier": "get_policy",
+            "read_only": true,
+            "parameters": {
+                "policy_id": {
+                    "description": "The Policy's identifier to receive the corresponding endpoint details",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": true,
+                    "contains": [
+                        "policy id"
+                    ],
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.policy_id",
+                    "data_type": "string",
+                    "contains": [
+                        "policy id"
+                    ],
+                    "column_name": "policyt ID",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "column_name": "Status",
+                    "column_order": 1,
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table"
+            },
+            "versions": "EQ(*)"
+        }
+    ]
+}
+    
